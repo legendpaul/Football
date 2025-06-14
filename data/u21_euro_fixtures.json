@@ -1,0 +1,20 @@
+[
+    {
+        "match_id": "1",
+        "teams": "Team A vs Team B",
+        "datetime_cet": "2024-07-20 17:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "2",
+        "teams": "Team C vs Team D",
+        "datetime_cet": "2024-07-21 20:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "3",
+        "teams": "TBD vs TBD",
+        "datetime_cet": "2024-07-22 17:00",
+        "uk_time": "TODO: Convert"
+    }
+]
