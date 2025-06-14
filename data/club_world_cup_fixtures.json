@@ -1,0 +1,38 @@
+[
+    {
+        "match_id": "cwc1",
+        "teams": "Al Ahly vs Auckland City",
+        "datetime_utc": "2024-12-12 18:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "cwc2",
+        "teams": "Urawa Red Diamonds vs Club Le\u00f3n",
+        "datetime_utc": "2024-12-15 15:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "cwc3",
+        "teams": "Winner M1 vs Fluminense",
+        "datetime_utc": "2024-12-18 18:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "cwc4",
+        "teams": "Winner M2 vs Manchester City",
+        "datetime_utc": "2024-12-19 18:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "cwc5",
+        "teams": "Loser M3 vs Loser M4 (3rd Place)",
+        "datetime_utc": "2024-12-22 15:00",
+        "uk_time": "TODO: Convert"
+    },
+    {
+        "match_id": "cwc6",
+        "teams": "Winner M3 vs Winner M4 (Final)",
+        "datetime_utc": "2024-12-22 18:00",
+        "uk_time": "TODO: Convert"
+    }
+]

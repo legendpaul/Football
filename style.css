@@ -1,0 +1,148 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+nav {
+    background-color: #333;
+    padding: 1em;
+    text-align: center;
+}
+
+nav button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+nav button:hover {
+    background-color: #777;
+}
+
+nav button.active {
+    background-color: #007bff;
+}
+
+main {
+    padding: 1em;
+}
+
+#tournament-details h1 {
+    text-align: center;
+    color: #333;
+}
+
+#fixtures, #group-stage, #knockout-stage, #results {
+    background-color: white;
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #007bff;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3em;
+}
+
+/* Placeholder for fixture items, group tables, tree, and results */
+#fixtures ul, #results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#fixtures li, #results li {
+    padding: 0.5em;
+    border-bottom: 1px solid #eee;
+}
+
+#fixtures li:last-child, #results li:last-child {
+    border-bottom: none;
+}
+
+/* Basic styling for tables that might be used in group stage */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+/* Append these styles to style.css */
+
+.tournament-round {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.tournament-round h4 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.match-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.match-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.match-item:last-child {
+    border-bottom: none;
+}
+
+.match-teams {
+    font-weight: bold;
+}
+
+.match-score {
+    min-width: 50px;
+    text-align: right;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.tournament-info {
+    font-style: italic;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* Attempt at some very basic tree-like structure using flexbox for side-by-side rounds */
+/* This will be a simplified representation and not a true branching tree */
+#knockout-stage {
+    /* display: flex; */ /* Potentially enable for horizontal layout if desired, needs more work */
+    /* flex-wrap: wrap; */ /* Or overflow-x: auto; */
+}
+
+/* If using flex for #knockout-stage, rounds might need width */
+/* .tournament-round { */
+    /* flex: 1 1 200px; */ /* Example: allow rounds to grow/shrink, base width 200px */
+    /* margin-right: 10px; */ /* Spacing between rounds if horizontal */
+/* } */

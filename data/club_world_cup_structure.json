@@ -1,0 +1,60 @@
+{
+    "info": "Club World Cup is primarily a knockout tournament.",
+    "rounds": [
+        {
+            "name": "First Round",
+            "matches": [
+                {
+                    "match_id": "cwc1",
+                    "teams": "Al Ahly vs Auckland City",
+                    "score": "TBD"
+                }
+            ]
+        },
+        {
+            "name": "Second Round",
+            "matches": [
+                {
+                    "match_id": "cwc2",
+                    "teams": "Urawa Red Diamonds vs Club Le\u00f3n",
+                    "score": "TBD"
+                },
+                {
+                    "match_id": "cwc_m_to_be_defined_later_1",
+                    "teams": "Al Ittihad vs Winner M1",
+                    "score": "TBD"
+                }
+            ]
+        },
+        {
+            "name": "Semi-finals",
+            "matches": [
+                {
+                    "match_id": "cwc3",
+                    "teams": "Winner M_Previous vs Fluminense",
+                    "score": "TBD"
+                },
+                {
+                    "match_id": "cwc4",
+                    "teams": "Winner M_Previous vs Manchester City",
+                    "score": "TBD"
+                }
+            ]
+        },
+        {
+            "name": "Final and 3rd Place",
+            "matches": [
+                {
+                    "match_id": "cwc5",
+                    "teams": "Loser SF1 vs Loser SF2",
+                    "score": "TBD"
+                },
+                {
+                    "match_id": "cwc6",
+                    "teams": "Winner SF1 vs Winner SF2",
+                    "score": "TBD"
+                }
+            ]
+        }
+    ]
+}
