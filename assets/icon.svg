@@ -1,0 +1,27 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="256" height="256" fill="#0B4D39" rx="32"/>
+  
+  <!-- Gradient field -->
+  <circle cx="128" cy="128" r="100" fill="#0F5C47" opacity="0.3"/>
+  
+  <!-- Football/Soccer ball -->
+  <circle cx="128" cy="128" r="50" fill="white" stroke="#000" stroke-width="2"/>
+  
+  <!-- Pentagon pattern -->
+  <polygon points="128,88 138,108 158,108 148,128 138,108" fill="black"/>
+  <polygon points="128,168 118,148 98,148 108,128 118,148" fill="black"/>
+  <polygon points="148,128 168,138 168,158 148,148 128,148" fill="black"/>
+  <polygon points="108,128 88,118 88,98 108,108 128,108" fill="black"/>
+  <polygon points="128,108 138,88 158,88 148,108 138,128" fill="black"/>
+  
+  <!-- Goal posts -->
+  <rect x="40" y="110" width="4" height="30" fill="white"/>
+  <rect x="40" y="108" width="16" height="4" fill="white"/>
+  <rect x="212" y="110" width="4" height="30" fill="white"/>
+  <rect x="200" y="108" width="16" height="4" fill="white"/>
+  
+  <!-- Text -->
+  <text x="128" y="200" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Football</text>
+  <text x="128" y="220" text-anchor="middle" fill="#4CAF50" font-family="Arial, sans-serif" font-size="14">Tracker</text>
+</svg>

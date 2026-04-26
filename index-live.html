@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Football Tracker - Live Scores & Fixtures</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-live.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="overlay"></div>
+  <!-- Background loading indicator -->
+  <div class="background-loading-indicator" id="bg-loading-indicator" style="display: none;">
+    <div class="loading-text">Loading background...</div>
+  </div>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <h1 class="main-title">Football Tracker <span class="live-badge">🔴 LIVE</span></h1>
+        <div class="time-display">
+          <div class="clock-icon">🕐</div>
+          <div class="current-time" id="current-time">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Status Banner -->
+    <div class="live-status-banner">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span>Auto-refreshing every 30 seconds</span>
+      </div>
+      <div class="refresh-controls">
+        <button id="manual-refresh-btn" class="manual-refresh-btn" onclick="window.footballApp?.fetchFootballData()">
+          🔄 Refresh Now
+        </button>
+      </div>
+    </div>
+
+    <!-- Tournament Selection Section -->
+    <div class="section tournament-section">
+      <div class="section-header">
+        <div class="section-icon">🏆</div>
+        <h2 class="section-title">Select Tournament</h2>
+      </div>
+      
+      <div class="tournament-controls">
+        <div class="tournament-dropdown-container">
+          <select id="tournament-select" class="tournament-dropdown">
+            <option value="UEFA Women's Euro">UEFA Women's Euro 2025 (Switzerland)</option>
+            <option value="FIFA Club World Cup">FIFA Club World Cup 2025 (USA)</option>
+          </select>
+          <button id="fetch-btn" class="fetch-btn">
+            ⚽ Get Live Data
+          </button>
+        </div>
+        
+        <div class="view-toggle">
+          <button id="fixtures-btn" class="view-btn active" data-view="fixtures">📅 Fixtures</button>
+          <button id="results-btn" class="view-btn" data-view="results">📊 Results</button>
+          <button id="live-btn" class="view-btn" data-view="live">🔴 Live</button>
+          <button id="tournament-btn" class="view-btn" data-view="tournament">🏆 Tournament</button>
+        </div>
+        
+        <div class="results-info">
+          <div class="results-stats">
+            <span id="results-count">0 matches found</span>
+            <span id="last-updated">Never updated</span>
+          </div>
+          <div class="filter-stats">
+            <span id="filter-info">🌐 Live data from multiple sources</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Scores Section (when applicable) -->
+    <div class="live-scores-container" id="live-scores-container" style="display: none;">
+      <div class="live-scores-header">
+        <div class="live-indicator-header">
+          <div class="live-dot"></div>
+          <span>LIVE MATCHES</span>
+        </div>
+        <div class="live-time">
+          <span>Auto-updating...</span>
+        </div>
+      </div>
+      <div class="football-grid" id="live-scores">
+        <!-- Live scores will be populated here -->
+      </div>
+    </div>
+
+    <!-- Football Results Section -->
+    <div class="section fixtures-section">
+      <div class="section-header">
+        <div class="section-icon">⚽</div>
+        <h2 class="section-title" id="main-section-title">Football Fixtures</h2>
+      </div>
+      
+      <div class="football-grid" id="football-results">
+        <div class="no-results">
+          <div class="no-results-icon">🎯</div>
+          <div class="no-results-text">Select a tournament and click "Get Live Data" to view matches</div>
+          <div class="no-results-subtext">Live data from UEFA.com, FIFA.com, and other sources</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tournament Structure Section -->
+    <div class="section tournament-structure-section" id="tournament-structure-section" style="display: none;">
+      <div class="section-header">
+        <div class="section-icon">🏆</div>
+        <h2 class="section-title" id="tournament-section-title">Tournament Structure</h2>
+      </div>
+      
+      <!-- Group Stage Tables -->
+      <div id="group-stage-container" class="group-stage-container">
+        <!-- Group tables will be populated here -->
+      </div>
+      
+      <!-- Knockout Stage Bracket -->
+      <div id="knockout-stage-container" class="knockout-stage-container">
+        <!-- Knockout bracket will be populated here -->
+      </div>
+    </div>
+
+    <!-- Team Management Section -->
+    <div class="section teams-section">
+      <div class="section-header">
+        <div class="section-icon">👥</div>
+        <h2 class="section-title">Favorite Teams</h2>
+      </div>
+      
+      <div class="team-controls">
+        <div class="team-input-container">
+          <input type="text" id="team-input" class="team-input" placeholder="Enter team name to add to favorites">
+          <button id="add-team-btn" class="add-team-btn">
+            ⭐ Add Favorite
+          </button>
+        </div>
+        
+        <div class="team-list-container">
+          <div class="team-list-header">
+            <span>Favorite Teams:</span>
+            <div class="team-list-controls">
+              <button id="clear-teams-btn" class="clear-teams-btn">
+                🗑️ Clear All
+              </button>
+            </div>
+          </div>
+          <div class="team-tags" id="team-tags">
+            <!-- Team tags will be populated by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="team-info-panel">
+          <p>⭐ <strong>Favorite Teams:</strong> Add teams to your favorites to track their matches across all tournaments</p>
+          <p>🔔 <strong>Live Updates:</strong> Get highlighted matches when your favorite teams are playing</p>
+          <p>📱 <strong>Auto-Refresh:</strong> Data automatically updates every 30 seconds to show latest scores</p>
+          <p>🌐 <strong>Multiple Sources:</strong> Data scraped from UEFA.com, FIFA.com, Flashscore, and other reliable sources</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Data Sources Section -->
+    <div class="section sources-section">
+      <div class="section-header">
+        <div class="section-icon">🌐</div>
+        <h2 class="section-title">Live Data Sources</h2>
+      </div>
+      
+      <div class="sources-content">
+        <div class="source-item">
+          <div class="source-icon">🏆</div>
+          <div class="source-info">
+            <h4>UEFA.com</h4>
+            <p>Official UEFA U21 Championship data including fixtures, results, and standings</p>
+          </div>
+          <div class="source-status">✅ Active</div>
+        </div>
+        
+        <div class="source-item">
+          <div class="source-icon">🌍</div>
+          <div class="source-info">
+            <h4>FIFA.com</h4>
+            <p>Official FIFA Club World Cup data with live scores and tournament structure</p>
+          </div>
+          <div class="source-status">✅ Active</div>
+        </div>
+        
+        <div class="source-item">
+          <div class="source-icon">⚡</div>
+          <div class="source-info">
+            <h4>Flashscore</h4>
+            <p>Real-time scores and statistics for both tournaments</p>
+          </div>
+          <div class="source-status">✅ Active</div>
+        </div>
+        
+        <div class="source-item">
+          <div class="source-icon">🔄</div>
+          <div class="source-info">
+            <h4>Auto-Refresh</h4>
+            <p>Data automatically updates every 30 seconds for the latest information</p>
+          </div>
+          <div class="source-status">🔴 Live</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Debug Section -->
+    <div class="section debug-section">
+      <div class="section-header">
+        <div class="section-icon">🔧</div>
+        <h2 class="section-title">Live Data Debug Information</h2>
+      </div>
+      
+      <div class="debug-content">
+        <div class="debug-tabs">
+          <button class="debug-tab active" data-tab="request">Live Requests</button>
+          <button class="debug-tab" data-tab="response">API Response</button>
+          <button class="debug-tab" data-tab="filtered">Processed Data</button>
+          <button class="debug-tab" data-tab="console">Console Logs</button>
+        </div>
+        
+        <div id="debug-request" class="debug-panel active">
+          <h3>Last Live Data Request</h3>
+          <div class="debug-info" id="api-request-info">No live requests made yet</div>
+        </div>
+        
+        <div id="debug-response" class="debug-panel">
+          <h3>Last API Response</h3>
+          <div class="debug-info" id="api-response-info">No API responses yet</div>
+        </div>
+        
+        <div id="debug-filtered" class="debug-panel">
+          <h3>Data Processing</h3>
+          <div class="debug-info" id="filtering-info">No data processing applied yet</div>
+        </div>
+        
+        <div id="debug-console" class="debug-panel">
+          <h3>Console Messages</h3>
+          <div class="debug-info" id="console-messages">No console messages captured</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p id="footer-status">🌐 Live data integration active - Real-time football data with 30-second auto-refresh!</p>
+    </div>
+  </div>
+
+  <!-- Error fallback display -->
+  <div id="error-display" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 0, 0, 0.9); color: white; padding: 20px; border-radius: 8px; z-index: 9999; max-width: 500px;">
+    <h3>⚠️ App initialization failed</h3>
+    <p>Please refresh the page. Error: <span id="error-message">FootballApp is not defined</span></p>
+    <button onclick="location.reload()" style="background: white; color: black; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">🔄 Refresh Page</button>
+  </div>
+
+  <!-- Load Football config first -->
+  <script src="config-web.js"></script>
+  <!-- Load timezone converter -->
+  <script src="timezone-converter.js"></script>
+  <!-- Load the live scraper -->
+  <script src="live-scraper.js"></script>
+  <!-- Load the main application with live data -->
+  <script src="app.js"></script>
+  
+  <script>
+    // Error handling and initialization
+    console.log('⚽ Starting Football Tracker v3.0 with Live Data Integration...');
+    
+    // Check if app loaded successfully
+    function checkAppLoaded() {
+      if (typeof window.footballApp === 'undefined') {
+        console.error('❌ FootballApp failed to initialize');
+        const errorDisplay = document.getElementById('error-display');
+        if (errorDisplay) {
+          errorDisplay.style.display = 'block';
+        }
+        return false;
+      }
+      
+      console.log('✅ FootballApp with Live Data initialized successfully');
+      return true;
+    }
+    
+    // Wait for DOM and then check app
+    function initializeApp() {
+      console.log('🔄 Checking app initialization...');
+      
+      // Give the app script time to load
+      setTimeout(() => {
+        if (checkAppLoaded()) {
+          setupEventListeners();
+          console.log('🎯 App ready with Live Data Integration!');
+        }
+      }, 100);
+    }
+    
+    // Set up event listeners safely
+    function setupEventListeners() {
+      // Fetch button
+      const fetchBtn = document.getElementById('fetch-btn');
+      if (fetchBtn) {
+        fetchBtn.addEventListener('click', () => {
+          if (window.footballApp && window.footballApp.fetchFootballData) {
+            window.footballApp.fetchFootballData();
+          }
+        });
+      }
+
+      // Manual refresh button
+      const manualRefreshBtn = document.getElementById('manual-refresh-btn');
+      if (manualRefreshBtn) {
+        manualRefreshBtn.addEventListener('click', () => {
+          if (window.footballApp && window.footballApp.fetchFootballData) {
+            window.footballApp.fetchFootballData();
+          }
+        });
+      }
+      
+      // View toggle buttons
+      const viewButtons = document.querySelectorAll('.view-btn');
+      viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (window.footballApp && window.footballApp.switchView) {
+            const viewType = btn.getAttribute('data-view');
+            window.footballApp.switchView(viewType);
+            
+            // Update active state
+            viewButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          }
+        });
+      });
+      
+      // Set initial view button active state
+      const initialActiveBtn = document.querySelector(`[data-view="${window.footballApp ? window.footballApp.currentView : 'fixtures'}"]`);
+      if (initialActiveBtn) {
+        viewButtons.forEach(b => b.classList.remove('active'));
+        initialActiveBtn.classList.add('active');
+      }
+      
+      // Add team button
+      const addTeamBtn = document.getElementById('add-team-btn');
+      if (addTeamBtn) {
+        addTeamBtn.addEventListener('click', () => {
+          if (window.footballApp && window.footballApp.addFavoriteTeam) {
+            window.footballApp.addFavoriteTeam();
+          }
+        });
+      }
+      
+      // Clear teams button
+      const clearTeamsBtn = document.getElementById('clear-teams-btn');
+      if (clearTeamsBtn) {
+        clearTeamsBtn.addEventListener('click', () => {
+          if (window.footballApp && window.footballApp.clearFavoriteTeams) {
+            window.footballApp.clearFavoriteTeams();
+          }
+        });
+      }
+      
+      // Tournament selection change
+      const tournamentSelect = document.getElementById('tournament-select');
+      if (tournamentSelect) {
+        tournamentSelect.addEventListener('change', () => {
+          if (window.footballApp && window.footballApp.onTournamentChange) {
+            window.footballApp.onTournamentChange();
+          }
+        });
+      }
+      
+      // Debug tabs
+      const debugTabs = document.querySelectorAll('.debug-tab');
+      debugTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.getAttribute('data-tab');
+          if (window.footballApp && window.footballApp.showDebugTab) {
+            window.footballApp.showDebugTab(tabName);
+          }
+        });
+      });
+      
+      // Team input Enter key
+      const teamInput = document.getElementById('team-input');
+      if (teamInput) {
+        teamInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            if (window.footballApp && window.footballApp.addFavoriteTeam) {
+              window.footballApp.addFavoriteTeam();
+            }
+          }
+        });
+      }
+      
+      console.log('🔗 Event listeners set up for live data app');
+    }
+    
+    // Update footer status based on environment and storage
+    function updateFooterStatus() {
+      const footerElement = document.getElementById('footer-status');
+      if (footerElement && window.footballApp) {
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const storage = isLocal ? 'localStorage' : 'Neon Database';
+        const environment = isLocal ? 'Local' : 'Production';
+        
+        footerElement.innerHTML = `🌐 ${environment} environment with <strong>${storage}</strong> • Live data with 30s auto-refresh • Multiple sources active!`;
+      }
+    }
+    
+    // Auto-refresh indicator animation
+    function setupLiveIndicators() {
+      const liveDots = document.querySelectorAll('.live-dot');
+      
+      liveDots.forEach(dot => {
+        dot.style.animation = 'pulse 2s infinite';
+      });
+      
+      // Add CSS for pulse animation if not already present
+      if (!document.querySelector('#live-animation-style')) {
+        const style = document.createElement('style');
+        style.id = 'live-animation-style';
+        style.textContent = `
+          @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+          }
+          .live-dot {
+            background: #ff4444;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+          }
+          .live-badge {
+            background: #ff4444;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-left: 10px;
+          }
+          .live-status-banner {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .live-indicator {
+            display: flex;
+            align-items: center;
+            color: #ff4444;
+            font-weight: bold;
+          }
+          .manual-refresh-btn {
+            background: #00a86b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          .manual-refresh-btn:hover {
+            background: #008f5a;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeApp();
+        setTimeout(updateFooterStatus, 500);
+        setTimeout(setupLiveIndicators, 1000);
+      });
+    } else {
+      initializeApp();
+      setTimeout(updateFooterStatus, 500);
+      setTimeout(setupLiveIndicators, 1000);
+    }
+    
+    // Background Loading System (enhanced for live data)
+    console.log('🎨 BACKGROUND LOADING: Initializing background image system for live app...');
+    
+    function initializeBackgroundSystem() {
+      const backgroundImage = new Image();
+      const backgroundUrl = 'assets/background.jpg';
+      
+      function applyBackgroundLoadedState() {
+        document.body.classList.add('background-loaded');
+        console.log('✅ BACKGROUND LOADING: Background image loaded successfully for live app!');
+        
+        document.body.style.transition = 'all 1s ease';
+        
+        const title = document.querySelector('.main-title');
+        if (title) {
+          title.style.textShadow = '0 0 30px rgba(0, 168, 107, 0.8)';
+          setTimeout(() => {
+            title.style.textShadow = '0 0 20px rgba(0, 168, 107, 0.6)';
+          }, 2000);
+        }
+        
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+          section.style.transition = 'all 0.5s ease';
+        });
+        
+        console.log('🎨 BACKGROUND LOADING: Enhanced transparency effects applied for live data app!');
+      }
+      
+      function handleBackgroundLoadError() {
+        console.warn('⚠️ BACKGROUND LOADING: Background image failed to load, using fallback...');
+        
+        document.body.classList.add('background-fallback');
+        
+        const style = document.createElement('style');
+        style.textContent = `
+          .background-fallback .section {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+          }
+          .background-fallback .football-item {
+            background: rgba(0, 0, 0, 0.75);
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      backgroundImage.onload = function() {
+        console.log('🖼️ BACKGROUND LOADING: Image preloaded successfully for live app');
+        setTimeout(applyBackgroundLoadedState, 100);
+      };
+      
+      backgroundImage.onerror = function() {
+        console.warn('❌ BACKGROUND LOADING: Failed to preload background image');
+        handleBackgroundLoadError();
+      };
+      
+      backgroundImage.src = backgroundUrl;
+      
+      setTimeout(() => {
+        if (!document.body.classList.contains('background-loaded')) {
+          console.warn('⏰ BACKGROUND LOADING: Timeout reached, applying fallback');
+          handleBackgroundLoadError();
+        }
+      }, 5000);
+    }
+    
+    function setupPanelEnhancements() {
+      const sections = document.querySelectorAll('.section');
+      
+      sections.forEach(section => {
+        section.addEventListener('mouseenter', function() {
+          if (document.body.classList.contains('background-loaded')) {
+            this.style.backdropFilter = 'blur(18px)';
+            this.style.background = 'rgba(0, 0, 0, 0.8)';
+          }
+        });
+        
+        section.addEventListener('mouseleave', function() {
+          if (document.body.classList.contains('background-loaded')) {
+            this.style.backdropFilter = 'blur(12px)';
+            this.style.background = 'rgba(0, 0, 0, 0.7)';
+          }
+        });
+      });
+      
+      console.log('✨ BACKGROUND LOADING: Panel enhancements setup complete for live app');
+    }
+    
+    // Initialize background system
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeBackgroundSystem();
+        setupPanelEnhancements();
+      });
+    } else {
+      initializeBackgroundSystem();
+      setupPanelEnhancements();
+    }
+    
+    window.backgroundSystem = {
+      reinitialize: initializeBackgroundSystem,
+      setupEnhancements: setupPanelEnhancements
+    };
+    
+    console.log('🎨 BACKGROUND LOADING: System initialized for live data app');
+  </script>
+</body>
+</html>

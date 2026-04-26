@@ -1,0 +1,124 @@
+{
+  "name": "football-tracker",
+  "version": "3.0.0",
+  "description": "Advanced Football tournament tracker with LIVE data scraping, schedules, scores and real-time updates - Enhanced with 30-second auto-refresh",
+  "author": "Football Tracker Developer",
+  "license": "MIT",
+  "keywords": [
+    "football",
+    "soccer",
+    "live-scores",
+    "tournament-tracker",
+    "real-time",
+    "uefa-u21",
+    "fifa-club-world-cup",
+    "web-scraping",
+    "auto-refresh",
+    "postgresql",
+    "neon-database",
+    "netlify",
+    "serverless"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/football-tracker.git"
+  },
+  "scripts": {
+    "dev": "netlify dev",
+    "dev:live": "python -m http.server 8000",
+    "build": "node scripts/utils.js build",
+    "deploy": "netlify deploy --prod",
+    "setup": "node scripts/utils.js setup",
+    "health": "node scripts/utils.js health",
+    "status": "node scripts/utils.js status",
+    "cleanup": "node scripts/utils.js cleanup",
+    "restore": "node scripts/utils.js restore",
+    "db:status": "node scripts/utils.js db status",
+    "db:migrate": "node scripts/utils.js db migrate",
+    "db:health": "node scripts/utils.js db health",
+    "functions:install": "cd netlify/functions && npm install",
+    "functions:dev": "cd netlify/functions && npm run dev",
+    "scrape:uefa": "python advanced_scraper.py uefa",
+    "scrape:fifa": "python advanced_scraper.py fifa",
+    "scrape:all": "python advanced_scraper.py",
+    "scrape:cron": "node scripts/cron-scraper.js",
+    "live:start": "node scripts/live-data-server.js",
+    "live:test": "node scripts/test-live-data.js",
+    "live:monitor": "node scripts/monitor-sources.js",
+    "start": "npm run dev:live",
+    "start:original": "npm run dev",
+    "test": "npm run health && npm run live:test",
+    "test:scraping": "npm run scrape:all",
+    "postinstall": "npm run functions:install",
+    "predeploy": "npm run build",
+    "postdeploy": "npm run restore",
+    "logs": "tail -f football_scraper.log",
+    "clear:cache": "rm -rf .cache && rm -f football_scraper.log",
+    "update:sources": "node scripts/update-data-sources.js"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0",
+    "python": ">=3.8.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "pg": "^8.11.0",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {
+    "netlify-cli": "^15.0.0",
+    "nodemon": "^3.0.1"
+  },
+  "python_dependencies": [
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "aiohttp>=3.8.0",
+    "lxml>=4.9.0"
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "files": [
+    "index-live.html",
+    "index.html",
+    "live-scraper.js",
+    "app-live.js",
+    "app-web-fixed.js",
+    "config-web.js",
+    "styles-live.css",
+    "styles.css",
+    "advanced_scraper.py",
+    "assets/",
+    "netlify/",
+    "database/",
+    "scripts/",
+    "data/",
+    "*.md"
+  ],
+  "config": {
+    "live_data": {
+      "refresh_interval": 30000,
+      "cache_duration": 30,
+      "max_retries": 3,
+      "timeout": 10000
+    },
+    "tournaments": {
+      "uefa_u21": {
+        "name": "UEFA Euro U21 2025",
+        "location": "Slovakia",
+        "dates": "June 11-28, 2025",
+        "enabled": true
+      },
+      "fifa_cwc": {
+        "name": "FIFA Club World Cup 2025",
+        "location": "USA",
+        "dates": "June 14 - July 13, 2025",
+        "enabled": true
+      }
+    }
+  }
+}

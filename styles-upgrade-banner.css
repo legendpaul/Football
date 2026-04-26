@@ -1,0 +1,188 @@
+/* Upgrade Banner Styles */
+.upgrade-banner {
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.9), rgba(255, 102, 0, 0.8));
+  border: 2px solid #ff4444;
+  border-radius: 12px;
+  margin: 0 0 20px 0;
+  padding: 0;
+  box-shadow: 0 8px 20px rgba(255, 68, 68, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  animation: upgradeGlow 3s ease-in-out infinite;
+}
+
+.upgrade-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: upgradeShimmer 3s infinite;
+}
+
+.upgrade-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.upgrade-icon {
+  font-size: 2.5em;
+  animation: upgradePulse 2s ease-in-out infinite;
+}
+
+.upgrade-text {
+  flex: 1;
+  color: white;
+}
+
+.upgrade-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-text p {
+  margin: 0;
+  font-size: 1em;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.upgrade-btn {
+  background: linear-gradient(135deg, #00a86b, #00c777);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1em;
+  box-shadow: 0 4px 12px rgba(0, 168, 107, 0.4);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upgrade-btn:hover {
+  background: linear-gradient(135deg, #008f5a, #00a864);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 168, 107, 0.5);
+}
+
+.dismiss-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Upgrade Banner Animations */
+@keyframes upgradeGlow {
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(255, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(255, 68, 68, 0.5);
+  }
+}
+
+@keyframes upgradeShimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes upgradePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive styles for upgrade banner */
+@media (max-width: 768px) {
+  .upgrade-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .upgrade-text h3 {
+    font-size: 1.3em;
+  }
+  
+  .upgrade-text p {
+    font-size: 0.9em;
+  }
+  
+  .upgrade-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .upgrade-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .upgrade-content {
+    padding: 12px;
+  }
+  
+  .upgrade-text h3 {
+    font-size: 1.2em;
+  }
+  
+  .upgrade-text p {
+    font-size: 0.85em;
+  }
+  
+  .upgrade-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+  
+  .dismiss-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3em;
+  }
+}

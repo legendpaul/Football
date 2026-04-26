@@ -1,0 +1,53 @@
+# Football Tracker Live Data - Python Requirements
+# Install with: pip install -r requirements.txt
+
+# Core HTTP and web scraping
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Async HTTP support
+aiohttp>=3.8.0
+asyncio-throttle>=1.0.2
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Date/time handling
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# JSON and data validation
+jsonschema>=4.17.0
+pydantic>=2.0.0
+
+# Logging and monitoring
+structlog>=23.1.0
+rich>=13.4.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Optional: Database support (if needed)
+psycopg2-binary>=2.9.0
+sqlalchemy>=2.0.0
+
+# Optional: Advanced parsing
+selectolax>=0.3.0
+scrapy>=2.9.0
+
+# Optional: Browser automation (if needed for complex sites)
+selenium>=4.10.0
+playwright>=1.36.0
+
+# Development and testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.7.0
+flake8>=6.0.0
+
+# Performance monitoring
+memory-profiler>=0.60.0
+psutil>=5.9.0

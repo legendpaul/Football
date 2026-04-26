@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Tracker - API Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .controls {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tournament-select {
+            margin: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn {
+            margin: 5px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: rgba(255,255,255,0.4);
+            font-weight: bold;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .match-item {
+            background: rgba(255,255,255,0.15);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .teams {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .match-details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 5px 0;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-live {
+            background: #ff4444;
+            animation: pulse 1s infinite;
+        }
+
+        .status-upcoming {
+            background: #2196F3;
+        }
+
+        .status-finished {
+            background: #4CAF50;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+
+        .error {
+            background: rgba(255,0,0,0.2);
+            color: #ffcccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .info-panel {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .api-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .fallback-notice {
+            background: rgba(255,165,0,0.3);
+            border: 1px solid orange;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚽ Football Tracker API Test</h1>
+        <p>Testing reliable API-based football data fetching</p>
+        <div class="api-status">
+            <span>API Status:</span>
+            <div class="status-indicator" id="api-indicator"></div>
+            <span id="api-status-text">Ready</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div>
+            <label for="tournament-select">Select Tournament:</label>
+            <select id="tournament-select" class="tournament-select" onchange="onTournamentChange()">
+                <option value="UEFA Women's Euro">UEFA Women's Euro 2025</option>
+                <option value="FIFA Club World Cup">FIFA Club World Cup 2025</option>
+            </select>
+        </div>
+
+        <div class="view-tabs">
+            <button class="tab active" onclick="switchView('fixtures')">Fixtures</button>
+            <button class="tab" onclick="switchView('results')">Results</button>
+            <button class="tab" onclick="switchView('live')">Live</button>
+        </div>
+
+        <div>
+            <button id="fetch-btn" class="btn" onclick="manualRefresh()">🔄 Refresh Data</button>
+            <button class="btn" onclick="clearCache()">🗑️ Clear Cache</button>
+            <button class="btn" onclick="toggleDebug()">🔧 Debug Info</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div id="info-panel" class="info-panel">
+            <div id="last-updated">Last updated: Never</div>
+            <div id="data-info">No data loaded yet</div>
+        </div>
+
+        <div id="fallback-notice" class="fallback-notice" style="display: none;">
+            📡 Using fallback data source
+        </div>
+
+        <div id="main-content">
+            <div class="loading">
+                <p>🔄 Loading football data...</p>
+                <p>Testing multiple API sources...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="debug-panel" class="content" style="display: none;">
+        <h3>🔧 Debug Information</h3>
+        <div id="debug-content">
+            <div class="info-panel">
+                <h4>API Client Status</h4>
+                <div id="api-debug"></div>
+            </div>
+            <div class="info-panel">
+                <h4>Last Response</h4>
+                <div id="response-debug"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the API client first -->
+    <script src="reliable-football-api.js"></script>
+    
+    <script>
+        // Simple test implementation
+        let apiClient = null;
+        let currentTournament = 'UEFA Women\'s Euro';
+        let currentView = 'fixtures';
+        let currentData = null;
+        let debugMode = false;
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Football API Test Page Loading...');
+            
+            try {
+                // Check if API client is available
+                if (typeof window.ReliableFootballAPI === 'undefined') {
+                    showError('❌ API Client not loaded. Please check the script includes.');
+                    return;
+                }
+
+                // Initialize API client
+                apiClient = new window.ReliableFootballAPI();
+                updateAPIStatus('✅ Connected', 'green');
+                
+                // Load initial data
+                await loadTournamentData();
+                
+            } catch (error) {
+                console.error('Initialization failed:', error);
+                showError(`Initialization failed: ${error.message}`);
+                updateAPIStatus('❌ Failed', 'red');
+            }
+        });
+
+        // Load tournament data
+        async function loadTournamentData() {
+            try {
+                updateAPIStatus('🔄 Loading...', 'orange');
+                showLoading();
+
+                let data;
+                if (currentTournament === 'UEFA Women\'s Euro') {
+                    data = await apiClient.getUefaU21Data();
+                } else {
+                    data = await apiClient.getFifaClubWorldCupData();
+                }
+
+                currentData = data;
+                displayData();
+                updateLastUpdated();
+                updateAPIStatus('✅ Connected', 'green');
+
+                // Show fallback notice if needed
+                if (data.fallback) {
+                    showFallbackNotice(data.source);
+                } else {
+                    hideFallbackNotice();
+                }
+
+                console.log('Data loaded:', data);
+
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                showError(`Failed to load data: ${error.message}`);
+                updateAPIStatus('❌ Error', 'red');
+            }
+        }
+
+        // Display the loaded data
+        function displayData() {
+            if (!currentData) return;
+
+            const container = document.getElementById('main-content');
+            let content = '';
+
+            switch (currentView) {
+                case 'fixtures':
+                    content = displayFixtures();
+                    break;
+                case 'results':
+                    content = displayResults();
+                    break;
+                case 'live':
+                    content = displayLive();
+                    break;
+            }
+
+            container.innerHTML = content;
+            updateDataInfo();
+        }
+
+        // Display fixtures
+        function displayFixtures() {
+            const fixtures = currentData.fixtures || [];
+            
+            if (fixtures.length === 0) {
+                return '<div class="loading">No upcoming fixtures found</div>';
+            }
+
+            return fixtures.map(fixture => `
+                <div class="match-item">
+                    <div class="teams">${fixture.teams}</div>
+                    <div class="match-details">
+                        UK Time: ${fixture.uk_time || 'TBD'}<br>
+                        Date: ${fixture.datetime_utc || 'TBD'}
+                    </div>
+                    <div class="status status-upcoming">Upcoming</div>
+                </div>
+            `).join('');
+        }
+
+        // Display results
+        function displayResults() {
+            const results = currentData.results || [];
+            
+            if (results.length === 0) {
+                return '<div class="loading">No results available</div>';
+            }
+
+            return results.map(result => `
+                <div class="match-item">
+                    <div class="teams">${result.teams}</div>
+                    <div class="score">${result.score}</div>
+                    <div class="match-details">Date: ${result.date}</div>
+                    <div class="status status-finished">Finished</div>
+                </div>
+            `).join('');
+        }
+
+        // Display live matches
+        function displayLive() {
+            const live = currentData.live || [];
+            
+            if (live.length === 0) {
+                return '<div class="loading">No live matches at the moment</div>';
+            }
+
+            return live.map(match => `
+                <div class="match-item">
+                    <div class="teams">${match.teams}</div>
+                    <div class="score">${match.score || '0-0'}</div>
+                    <div class="match-details">UK Time: ${match.uk_time || 'LIVE'}</div>
+                    <div class="status status-live">🔴 LIVE</div>
+                </div>
+            `).join('');
+        }
+
+        // View switching
+        function switchView(view) {
+            currentView = view;
+            
+            // Update tab appearance
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            displayData();
+        }
+
+        // Tournament switching
+        function onTournamentChange() {
+            const select = document.getElementById('tournament-select');
+            currentTournament = select.value;
+            loadTournamentData();
+        }
+
+        // Manual refresh
+        async function manualRefresh() {
+            await loadTournamentData();
+        }
+
+        // Clear cache
+        function clearCache() {
+            if (apiClient) {
+                apiClient.clearCache();
+                console.log('Cache cleared');
+                updateAPIStatus('🗑️ Cache cleared', 'blue');
+                setTimeout(() => updateAPIStatus('✅ Connected', 'green'), 2000);
+            }
+        }
+
+        // Toggle debug panel
+        function toggleDebug() {
+            debugMode = !debugMode;
+            const panel = document.getElementById('debug-panel');
+            panel.style.display = debugMode ? 'block' : 'none';
+            
+            if (debugMode) {
+                updateDebugInfo();
+            }
+        }
+
+        // Update debug information
+        function updateDebugInfo() {
+            const apiDebug = document.getElementById('api-debug');
+            const responseDebug = document.getElementById('response-debug');
+            
+            if (apiClient) {
+                apiDebug.innerHTML = `
+                    <div>Cache size: ${apiClient.cache.size} items</div>
+                    <div>Cache timeout: ${apiClient.cacheTimeout}ms</div>
+                    <div>Available sources: ${Object.keys(apiClient.apiSources).length}</div>
+                `;
+            }
+
+            if (currentData) {
+                responseDebug.innerHTML = `
+                    <div>Fixtures: ${currentData.fixtures?.length || 0}</div>
+                    <div>Results: ${currentData.results?.length || 0}</div>
+                    <div>Live matches: ${currentData.live?.length || 0}</div>
+                    <div>Fallback: ${currentData.fallback ? 'Yes' : 'No'}</div>
+                    <div>Source: ${currentData.source || 'Primary API'}</div>
+                `;
+            }
+        }
+
+        // Utility functions
+        function showLoading() {
+            document.getElementById('main-content').innerHTML = `
+                <div class="loading">
+                    <p>🔄 Loading ${currentTournament} data...</p>
+                    <p>Trying multiple API sources...</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('main-content').innerHTML = `
+                <div class="error">
+                    <strong>Error:</strong> ${message}
+                </div>
+            `;
+        }
+
+        function updateAPIStatus(text, color) {
+            document.getElementById('api-status-text').textContent = text;
+            const indicator = document.getElementById('api-indicator');
+            indicator.style.background = color;
+        }
+
+        function updateLastUpdated() {
+            const now = new Date().toLocaleTimeString();
+            document.getElementById('last-updated').textContent = `Last updated: ${now}`;
+        }
+
+        function updateDataInfo() {
+            if (!currentData) return;
+            
+            const fixtures = currentData.fixtures?.length || 0;
+            const results = currentData.results?.length || 0;
+            const live = currentData.live?.length || 0;
+            
+            document.getElementById('data-info').textContent = 
+                `${fixtures} fixtures, ${results} results, ${live} live matches`;
+        }
+
+        function showFallbackNotice(source) {
+            const notice = document.getElementById('fallback-notice');
+            notice.style.display = 'block';
+            notice.innerHTML = `📡 Using fallback data source: ${source}`;
+        }
+
+        function hideFallbackNotice() {
+            document.getElementById('fallback-notice').style.display = 'none';
+        }
+
+        // Auto-refresh every 2 minutes
+        setInterval(() => {
+            if (apiClient && !debugMode) {
+                console.log('Auto-refreshing data...');
+                loadTournamentData();
+            }
+        }, 120000);
+    </script>
+</body>
+</html>

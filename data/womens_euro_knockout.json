@@ -1,0 +1,70 @@
+{
+    "quarter_finals": [
+        {
+            "match_id": "qf1",
+            "teams": "Switzerland vs Denmark",
+            "score": "TBD",
+            "date": "2025-07-18",
+            "time": "17:00",
+            "venue": "Basel Arena, Basel"
+        },
+        {
+            "match_id": "qf2", 
+            "teams": "Spain vs France",
+            "score": "TBD",
+            "date": "2025-07-18",
+            "time": "20:00",
+            "venue": "St. Jakob-Park, Basel"
+        },
+        {
+            "match_id": "qf3",
+            "teams": "England vs Sweden",
+            "score": "TBD", 
+            "date": "2025-07-19",
+            "time": "17:00",
+            "venue": "Letzigrund Stadium, Zurich"
+        },
+        {
+            "match_id": "qf4",
+            "teams": "Germany vs Netherlands",
+            "score": "TBD",
+            "date": "2025-07-19", 
+            "time": "20:00",
+            "venue": "Wankdorf Stadium, Bern"
+        }
+    ],
+    "semi_finals": [
+        {
+            "match_id": "sf1",
+            "teams": "QF1 Winner vs QF2 Winner",
+            "score": "TBD",
+            "date": "2025-07-22",
+            "time": "20:00",
+            "venue": "St. Jakob-Park, Basel"
+        },
+        {
+            "match_id": "sf2", 
+            "teams": "QF3 Winner vs QF4 Winner",
+            "score": "TBD",
+            "date": "2025-07-23",
+            "time": "20:00",
+            "venue": "Wankdorf Stadium, Bern"
+        }
+    ],
+    "final": {
+        "match_id": "final",
+        "teams": "SF1 Winner vs SF2 Winner",
+        "score": "TBD",
+        "date": "2025-07-27",
+        "time": "20:00",
+        "venue": "St. Jakob-Park, Basel"
+    },
+    "third_place": {
+        "match_id": "3rd_place",
+        "teams": "SF1 Loser vs SF2 Loser", 
+        "score": "TBD",
+        "date": "2025-07-26",
+        "time": "17:00",
+        "venue": "Letzigrund Stadium, Zurich"
+    }
+}

@@ -1,0 +1,230 @@
+[
+    {
+        "group_name": "Group A",
+        "standings": [
+            {
+                "rank": 1,
+                "team": "Switzerland",
+                "flag": "🇨🇭",
+                "played": 2,
+                "won": 2,
+                "drawn": 0,
+                "lost": 0,
+                "goals_for": 4,
+                "goals_against": 1,
+                "goal_difference": 3,
+                "points": 6
+            },
+            {
+                "rank": 2,
+                "team": "Norway",
+                "flag": "🇳🇴",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 2,
+                "goals_against": 2,
+                "goal_difference": 0,
+                "points": 3
+            },
+            {
+                "rank": 3,
+                "team": "Iceland",
+                "flag": "🇮🇸",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 1,
+                "goals_against": 2,
+                "goal_difference": -1,
+                "points": 3
+            },
+            {
+                "rank": 4,
+                "team": "Finland",
+                "flag": "🇫🇮",
+                "played": 2,
+                "won": 0,
+                "drawn": 0,
+                "lost": 2,
+                "goals_for": 0,
+                "goals_against": 2,
+                "goal_difference": -2,
+                "points": 0
+            }
+        ]
+    },
+    {
+        "group_name": "Group B",
+        "standings": [
+            {
+                "rank": 1,
+                "team": "Spain",
+                "flag": "🇪🇸",
+                "played": 2,
+                "won": 2,
+                "drawn": 0,
+                "lost": 0,
+                "goals_for": 5,
+                "goals_against": 1,
+                "goal_difference": 4,
+                "points": 6
+            },
+            {
+                "rank": 2,
+                "team": "Denmark",
+                "flag": "🇩🇰",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 2,
+                "goals_against": 2,
+                "goal_difference": 0,
+                "points": 3
+            },
+            {
+                "rank": 3,
+                "team": "Belgium",
+                "flag": "🇧🇪",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 1,
+                "goals_against": 2,
+                "goal_difference": -1,
+                "points": 3
+            },
+            {
+                "rank": 4,
+                "team": "Italy",
+                "flag": "🇮🇹",
+                "played": 2,
+                "won": 0,
+                "drawn": 0,
+                "lost": 2,
+                "goals_for": 0,
+                "goals_against": 3,
+                "goal_difference": -3,
+                "points": 0
+            }
+        ]
+    },
+    {
+        "group_name": "Group C",
+        "standings": [
+            {
+                "rank": 1,
+                "team": "England",
+                "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+                "played": 2,
+                "won": 2,
+                "drawn": 0,
+                "lost": 0,
+                "goals_for": 4,
+                "goals_against": 1,
+                "goal_difference": 3,
+                "points": 6
+            },
+            {
+                "rank": 2,
+                "team": "France",
+                "flag": "🇫🇷",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 3,
+                "goals_against": 2,
+                "goal_difference": 1,
+                "points": 3
+            },
+            {
+                "rank": 3,
+                "team": "Netherlands",
+                "flag": "🇳🇱",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 2,
+                "goals_against": 2,
+                "goal_difference": 0,
+                "points": 3
+            },
+            {
+                "rank": 4,
+                "team": "Poland",
+                "flag": "🇵🇱",
+                "played": 2,
+                "won": 0,
+                "drawn": 0,
+                "lost": 2,
+                "goals_for": 0,
+                "goals_against": 4,
+                "goal_difference": -4,
+                "points": 0
+            }
+        ]
+    },
+    {
+        "group_name": "Group D",
+        "standings": [
+            {
+                "rank": 1,
+                "team": "Germany",
+                "flag": "🇩🇪",
+                "played": 2,
+                "won": 2,
+                "drawn": 0,
+                "lost": 0,
+                "goals_for": 5,
+                "goals_against": 2,
+                "goal_difference": 3,
+                "points": 6
+            },
+            {
+                "rank": 2,
+                "team": "Sweden",
+                "flag": "🇸🇪",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 3,
+                "goals_against": 2,
+                "goal_difference": 1,
+                "points": 3
+            },
+            {
+                "rank": 3,
+                "team": "Portugal",
+                "flag": "🇵🇹",
+                "played": 2,
+                "won": 1,
+                "drawn": 0,
+                "lost": 1,
+                "goals_for": 2,
+                "goals_against": 2,
+                "goal_difference": 0,
+                "points": 3
+            },
+            {
+                "rank": 4,
+                "team": "Ukraine",
+                "flag": "🇺🇦",
+                "played": 2,
+                "won": 0,
+                "drawn": 0,
+                "lost": 2,
+                "goals_for": 0,
+                "goals_against": 4,
+                "goal_difference": -4,
+                "points": 0
+            }
+        ]
+    }
+]

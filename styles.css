@@ -1,0 +1,1221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  /* Football brand colors */
+  --football-green: #00a86b;
+  --football-blue: #0066cc;
+  --football-orange: #ff6600;
+  --football-red: #cc0000;
+  --football-black: #1a1a1a;
+  --football-white: #ffffff;
+  --football-gray: #707070;
+  --football-light-gray: #f7f7f7;
+  --football-dark: #191919;
+  
+  /* Tournament colors */
+  --tournament-purple: #6f42c1;
+  --tournament-gold: #ffd700;
+  --tournament-cyan: #17a2b8;
+  --tournament-pink: #e83e8c;
+  
+  /* Accent colors */
+  --accent-glow: rgba(0, 168, 107, 0.4);
+  --success-glow: rgba(0, 204, 0, 0.4);
+  --warning-glow: rgba(255, 102, 0, 0.4);
+  --fixture-glow: rgba(0, 102, 204, 0.4);
+}
+
+/* Enhanced Background with Image Loading - Copied from MotivationApp */
+body {
+  background-color: var(--football-dark);
+  color: var(--football-white);
+  height: 100vh;
+  overflow: auto;
+  /* Background image system from MotivationApp */
+  background-image: url('assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Fallback gradient if image fails to load */
+  background-color: #1a1a1a;
+}
+
+/* Removed memory-intensive background animation */
+/* Simple overlay for better readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 168, 107, 0.05);
+  z-index: -2;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Enhanced overlay from MotivationApp for better background readability */
+  background: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-content {
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--football-white);
+  text-shadow: 0 0 20px rgba(0, 168, 107, 0.6);
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, var(--football-green) 0%, var(--tournament-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.time-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  color: var(--tournament-gold);
+  letter-spacing: 1px;
+}
+
+.clock-icon {
+  font-size: 20px;
+}
+
+/* Enhanced Sections with Transparency - Inspired by MotivationApp */
+.section {
+  margin: 20px 0;
+  padding: 25px;
+  /* Enhanced transparent background with better visibility */
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  border: 2px solid rgba(0, 168, 107, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: 1400px;
+  position: relative;
+}
+
+/* Removed memory-intensive animations and effects */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+.tournament-section {
+  border-left: 4px solid var(--football-blue);
+  border-right: 4px solid var(--football-blue);
+}
+
+.fixtures-section {
+  border-left: 4px solid var(--tournament-gold);
+  border-right: 4px solid var(--tournament-gold);
+}
+
+.results-section {
+  border-left: 4px solid var(--football-green);
+  border-right: 4px solid var(--football-green);
+}
+
+.teams-section {
+  border-left: 4px solid var(--football-red);
+  border-right: 4px solid var(--football-red);
+}
+
+.debug-section {
+  border-left: 4px solid var(--tournament-purple);
+  border-right: 4px solid var(--tournament-purple);
+}
+
+.debug-section .section-icon {
+  color: var(--tournament-purple);
+  text-shadow: 0 0 10px rgba(111, 66, 193, 0.4);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.section-icon {
+  font-size: 32px;
+}
+
+.tournament-section .section-icon {
+  color: var(--football-blue);
+  text-shadow: 0 0 10px var(--fixture-glow);
+}
+
+.fixtures-section .section-icon {
+  color: var(--tournament-gold);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.results-section .section-icon {
+  color: var(--football-green);
+  text-shadow: 0 0 10px var(--success-glow);
+}
+
+.teams-section .section-icon {
+  color: var(--football-red);
+  text-shadow: 0 0 10px rgba(204, 0, 0, 0.4);
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--football-white);
+  letter-spacing: 1px;
+}
+
+/* Tournament Controls */
+.tournament-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tournament-dropdown-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tournament-dropdown {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--football-white);
+  border: 2px solid var(--football-blue);
+  border-radius: 10px;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.tournament-dropdown:hover {
+  border-color: var(--tournament-gold);
+  box-shadow: 0 0 15px var(--fixture-glow);
+}
+
+.tournament-dropdown:focus {
+  outline: none;
+  border-color: var(--tournament-gold);
+  box-shadow: 0 0 20px var(--fixture-glow);
+}
+
+.fetch-btn {
+  background: linear-gradient(135deg, var(--football-green) 0%, var(--tournament-purple) 100%);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fetch-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 168, 107, 0.4);
+}
+
+.fetch-btn:active {
+  transform: translateY(0);
+}
+
+.fetch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.results-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Enhanced transparent sub-panel inspired by MotivationApp */
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 168, 107, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.results-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.results-stats span {
+  color: var(--tournament-gold);
+  font-weight: 600;
+}
+
+.filter-stats {
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 168, 107, 0.2);
+}
+
+.filter-stats span {
+  color: var(--football-gray);
+  font-size: 14px;
+}
+
+/* Football Results Grid */
+.football-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  min-height: 200px;
+}
+
+.football-item {
+  /* Enhanced transparent panels inspired by MotivationApp */
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid rgba(0, 168, 107, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.football-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 168, 107, 0.3);
+  border-color: var(--tournament-gold);
+}
+
+.fixture-item {
+  border-left: 3px solid var(--football-blue);
+}
+
+.result-item {
+  border-left: 3px solid var(--football-green);
+}
+
+.team-item {
+  border-left: 3px solid var(--football-red);
+}
+
+.football-item-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  justify-content: flex-end;
+}
+
+.football-item-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.team-logo-container {
+  flex-shrink: 0;
+}
+
+.team-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.match-teams {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.team-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--football-white);
+  margin-top: 5px;
+}
+
+.match-vs {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--football-gray);
+}
+
+.match-score {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--football-green);
+  text-shadow: 0 0 10px var(--success-glow);
+}
+
+.match-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.match-date {
+  color: var(--tournament-gold);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.match-venue {
+  color: var(--football-gray);
+  font-size: 12px;
+}
+
+.match-stage {
+  background: rgba(0, 168, 107, 0.2);
+  color: var(--football-green);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.tournament-badge {
+  background: rgba(0, 102, 204, 0.2);
+  color: var(--football-blue);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.favorite-btn {
+  background: rgba(255, 215, 0, 0.2);
+  color: var(--tournament-gold);
+  border: 1px solid var(--tournament-gold);
+  padding: 6px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+  background: var(--tournament-gold);
+  color: var(--football-black);
+  transform: scale(1.1);
+}
+
+.live-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--football-red);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  animation: pulse 2s infinite;
+}
+
+/* No Results State */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 15px;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+}
+
+.no-results-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.no-results-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+}
+
+.no-results-subtext {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Team Management Section */
+.team-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.team-input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.team-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--football-white);
+  border: 2px solid var(--football-red);
+  border-radius: 10px;
+  padding: 15px 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.team-input:focus {
+  outline: none;
+  border-color: var(--tournament-gold);
+  box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+}
+
+.add-team-btn {
+  background: linear-gradient(135deg, var(--football-red) 0%, var(--tournament-pink) 100%);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+}
+
+.team-list-container {
+  /* Enhanced transparent sub-panel inspired by MotivationApp */
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(204, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.team-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--football-white);
+}
+
+.team-list-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.clear-teams-btn {
+  background: rgba(204, 0, 0, 0.2);
+  color: var(--football-red);
+  border: 1px solid var(--football-red);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.clear-teams-btn:hover {
+  background: var(--football-red);
+  color: white;
+}
+
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
+  align-items: center;
+}
+
+.team-tag {
+  background: rgba(204, 0, 0, 0.2);
+  color: var(--football-red);
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(204, 0, 0, 0.3);
+}
+
+.team-tag .remove-tag {
+  background: none;
+  border: none;
+  color: var(--football-red);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.team-tag .remove-tag:hover {
+  background: var(--football-red);
+  color: white;
+}
+
+.team-info-panel {
+  /* Enhanced transparent info panel inspired by MotivationApp */
+  background: rgba(0, 168, 107, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  border-left: 4px solid var(--football-green);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.team-info-panel p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.footer p {
+  font-size: 14px;
+  color: var(--football-gray);
+  letter-spacing: 1px;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* View Toggle Buttons */
+.view-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.view-btn {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--football-white);
+  border: 2px solid var(--football-blue);
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.view-btn:hover {
+  border-color: var(--tournament-gold);
+  box-shadow: 0 0 15px var(--fixture-glow);
+}
+
+.view-btn.active {
+  background: var(--football-green);
+  border-color: var(--football-green);
+  color: white;
+  box-shadow: 0 0 20px var(--success-glow);
+}
+
+/* Live Score Updates */
+.live-scores-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(204, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+}
+
+.live-scores-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.live-indicator-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--football-red);
+  font-weight: 700;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--football-red);
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN - FIXED FOR MOBILE LANDSCAPE
+   =================================================================== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .football-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (min-width: 1800px) {
+  .football-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+/* Standard Desktop (1200px - 1399px) */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .app-container {
+    padding: 15px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .football-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  /* Reduce backdrop blur on smaller screens for performance */
+  .section {
+    backdrop-filter: blur(8px);
+  }
+  
+  .football-item {
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* MOBILE DEVICES (Touch screens with hover capability detection) */
+@media (max-width: 768px), 
+       (max-width: 1024px) and (max-height: 768px) and (orientation: landscape),
+       (hover: none) and (pointer: coarse) {
+  
+  .main-title {
+    font-size: 32px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  .tournament-dropdown-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .tournament-dropdown,
+  .fetch-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .results-info {
+    text-align: center;
+  }
+  
+  .results-stats {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* MOBILE SINGLE COLUMN LAYOUT */
+  .football-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .football-item-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .team-logo {
+    width: 100%;
+    height: 120px;
+    align-self: center;
+    max-width: 200px;
+  }
+  
+  .team-input-container {
+    flex-direction: column;
+  }
+  
+  .team-input,
+  .add-team-btn {
+    width: 100%;
+  }
+  
+  .team-list-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .team-list-controls {
+    justify-content: center;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .view-toggle {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .view-btn {
+    width: 200px;
+  }
+}
+
+/* MOBILE LANDSCAPE - SPECIFIC HANDLING FOR 2 COLUMNS */
+@media (max-width: 1024px) and (max-height: 768px) and (orientation: landscape) {
+  
+  /* Override single column and use 2 columns for mobile landscape */
+  .football-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+  }
+  
+  .main-title {
+    font-size: 28px;
+  }
+  
+  .section {
+    margin: 15px 0;
+    padding: 15px;
+  }
+  
+  .app-container {
+    padding: 10px;
+  }
+  
+  /* Keep header content horizontal in landscape */
+  .header-content {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  /* Compact controls for landscape */
+  .tournament-dropdown-container {
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .tournament-dropdown,
+  .fetch-btn {
+    max-width: 250px;
+  }
+  
+  /* Restore horizontal layout for team controls in landscape */
+  .team-input-container {
+    flex-direction: row;
+  }
+  
+  .team-list-header {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  /* Smaller items in landscape mode */
+  .football-item {
+    padding: 12px;
+  }
+  
+  .team-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .team-name {
+    font-size: 12px;
+  }
+  
+  .match-score {
+    font-size: 18px;
+  }
+  
+  .view-toggle {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .view-btn {
+    width: auto;
+    padding: 8px 16px;
+  }
+}
+
+/* MOBILE PORTRAIT - SINGLE COLUMN */
+@media (max-width: 768px) and (orientation: portrait),
+       (max-width: 480px) {
+  
+  .football-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .main-title {
+    font-size: 28px;
+  }
+  
+  .section {
+    margin: 10px 0;
+    padding: 15px;
+  }
+  
+  .app-container {
+    padding: 10px;
+  }
+}
+
+/* SMALL MOBILE DEVICES */
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 24px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+  }
+  
+  .section {
+    padding: 12px;
+  }
+  
+  .football-item {
+    padding: 10px;
+  }
+}
+
+/* TABLET LANDSCAPE DETECTION */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  .football-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .section {
+    padding: 18px;
+  }
+}
+
+/* TABLET PORTRAIT */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+  .football-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+/* FORCE MOBILE BEHAVIOR ON TOUCH DEVICES REGARDLESS OF SIZE */
+@media (hover: none) and (pointer: coarse) and (max-width: 1024px) {
+  .football-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  /* Ensure mobile landscape gets 2 columns max */
+  @media (orientation: landscape) and (max-height: 768px) {
+    .football-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+}
+
+/* HEIGHT-BASED RESPONSIVE DESIGN */
+@media (max-height: 900px) {
+  .section {
+    margin: 15px 0;
+    padding: 15px;
+  }
+  
+  .header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .main-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-height: 600px) {
+  .section {
+    margin: 10px 0;
+    padding: 12px;
+  }
+  
+  .main-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+}
+
+/* ===================================================================
+   END RESPONSIVE DESIGN
+   =================================================================== */
+
+/* Debug Section Styles */
+.debug-content {
+  /* Enhanced transparent sub-panel inspired by MotivationApp */
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(111, 66, 193, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.debug-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(111, 66, 193, 0.3);
+  padding-bottom: 10px;
+}
+
+.debug-tab {
+  background: rgba(111, 66, 193, 0.2);
+  color: var(--tournament-purple);
+  border: 1px solid var(--tournament-purple);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.debug-tab:hover {
+  background: rgba(111, 66, 193, 0.4);
+  transform: translateY(-2px);
+}
+
+.debug-tab.active {
+  background: var(--tournament-purple);
+  color: white;
+  box-shadow: 0 4px 15px rgba(111, 66, 193, 0.4);
+}
+
+.debug-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.debug-panel.active {
+  display: block;
+}
+
+.debug-panel h3 {
+  color: var(--tournament-purple);
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.debug-info {
+  /* Enhanced transparent sub-panel inspired by MotivationApp */
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 15px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--football-white);
+  border: 1px solid rgba(111, 66, 193, 0.4);
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease;
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid rgba(0, 168, 107, 0.5);
+  outline-offset: 2px;
+}
+
+/* Enhanced animations */
+.football-item {
+  animation: itemAppear 0.5s ease-out;
+}
+
+@keyframes itemAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Enhanced transparency when background image is loaded */
+.background-loaded .section {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.background-loaded .football-item {
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.background-loaded .overlay {
+  background: rgba(0, 0, 0, 0.6); /* Reduce overlay opacity when background loads */
+}
